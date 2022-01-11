@@ -1,3 +1,42 @@
+// Definicion de clase course
+class Course {
+  constructor({ name, classes = [], commets = [] }) {
+    this.name = name;
+    this.classes = classes;
+  }
+}
+
+const cursoProgBasica = new Course({
+  name: "Curso Gratis de Programacion Basica",
+});
+const cursoDefinitivoHTML = new Course({
+  name: "Curso Definitivo de HTML & CSS",
+});
+
+// Definicion de LearningPath
+class LearningPath {
+  constructor({ name, courses = [] }) {
+    this.name = name;
+    this.courses = courses;
+  }
+}
+
+const escuelaWeb = new LearningPath({
+  name: "Escuela de Desarrollo Web",
+  courses: [cursoProgBasica, cursoDefinitivoHTML, "HTML & CSS Practico"],
+});
+
+const escuelaData = new LearningPath({
+  name: "Escuela de Data Science",
+  courses: [cursoProgBasica, "Data Bussines", "Marketing Digital"],
+});
+
+const escuelaVgs = new LearningPath({
+  name: "Escuela de Video Juegos",
+  courses: [cursoProgBasica, "Introduccion a Unity", "Unreal Engine"],
+});
+
+// Defincion de Student
 class Student {
   constructor({
     name,
@@ -37,60 +76,3 @@ const jose1 = new Student({
   email: "arturito@mail.com",
   instagram: "artuiter",
 });
-
-/*
-// Con objetos literales abarcariamos muchas más líneas de código
-
-const josatan6 = new Student({
-  name: "Josatán",
-  username: "Jonathan",
-  email: "jostan@mail.com",
-  twitter: "JotanDev",
-});
-
-const josatan = {
-  name: "Josatán",
-  username: "Jonathan",
-  points: 100,
-  socialMedia: {
-    twitter: "@JotanDev_twitter",
-    instagram: "@JotanDev_instagram",
-    facebook: "@JotanDev_facebook",
-  },
-  aprovedCourses: ["HTML & CSS", "HTML & CSS Práctico"],
-  //
-  learningPaths: [
-    {
-      name: "Escuela de Desarrollo Web",
-      courses: ["HTML & CSS", "HTML & CSS Práctico", "Responsive Desing"],
-    },
-    {
-      name: "Escuela de Video Juegos",
-      courses: ["Producción de VGS", "Ureal Engine", "Unity 3D"],
-    },
-    {},
-  ],
-};
-
-const meganito = {
-  name: "Megano",
-  username: "MengaDev",
-  points: 100,
-  socialMedia: {
-    twitter: "@MengaDev_twitter",
-    instagram: undefined,
-    facebook: "@MenganDev_facebook",
-  },
-  aprovedCourses: ["Data Business", "DataViz AI"],
-  //
-  learningPaths: [
-    {
-      name: "Escuela de Desarrollo Web",
-      courses: ["HTML & CSS", "HTML & CSS Práctico", "Responsive Desing"],
-    },
-    {
-      name: "Escuela de Data Science",
-      courses: ["Data Business", "DataViz", "Tableau"],
-    },
-  ],
-}; */
