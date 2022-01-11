@@ -1,8 +1,27 @@
 // Definicion de clase course
 class Course {
   constructor({ name, classes = [], commets = [] }) {
-    this.name = name;
+    // nomenclatura de _guionBajo al incio se usa para hacer saber al resto que no llamen o modifiquen estos metodos o atributos desde afuera ya que son "privados" o eso es lo que lograremos haciendo:
+    // Para eso escondemos el atributo _name dentro del prototipo Course
+    //Luego solo tendran que entrar por el get o el set
+    this._name = name;
     this.classes = classes;
+  }
+
+  // Para conseguir el valor de los atributos haremos lo siguiente:
+  // palabra calve get nombreAtributo y transformado a metodo con ({ retunr this._marcadoComoPrivado })
+  get name() {
+    return this._name;
+    // Para llamar el valor del metodo con nomenclatura privada lo hariamos de esta forma << cursoProgBasica.name() >>
+  }
+
+  // Para llamar ese valor con get lo haremos: << cursoProgBasica.name >> sin los parentesis
+  set name(nuevoNombre) {
+    if (nuevoNombre === "Curso Malicioso de Programacion Basica") {
+      console.warn("Wey... no 👨‍💻👀");
+    } else {
+      this._name = nuevoNombre;
+    }
   }
 }
 
