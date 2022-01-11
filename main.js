@@ -1,109 +1,96 @@
-const natalia = {
-  // Atributos
-  name: "Natalia",
-  age: 20,
-  cusosAprobados: [
-    "Curso definitivo de HTML y CSS",
-    "Curso practico de HTML y CSS",
-  ],
-
-  // Metodos
-  /* Forma un poco más larga para hacer métodos
-          aprobarCurso:function () {
-          }
-    */
-  // Otra forma de hacer metodos
-  aprobarCurso(nuevoCurso) {
-    // this hace referencia al objeto que envuelve a esta function
-    this.cusosAprobados.push(nuevoCurso);
-  },
-};
-// Añadimos otro cuso de esta forma, luego lo pasaremos a un método
-// natalia.cusosAprobados.push('Curso de Responsive Desing')
-
-// Prototipo que sera el molde para crear nuevos estudiantes
-function Student(name, age, cusosAprobados) {
-  this.name = name;
-  this.age = age;
-  this.cusosAprobados = cusosAprobados;
-  /*  Forma de trabajar metodos dentro de los prototipos
-      this.aprobarCurso = function name(nuevoCurso) {
-        this.cusosAprobados.push(nuevoCurso);
-      };
-  */
-}
-// Metodos por fuera de la funccion prototype Student usando la herramienta proto
-Student.prototype.aprobarCurso = function (nuevoCurso) {
-  this.cusosAprobados.push(nuevoCurso);
-};
-
-// Instancia del prototipo Student
-const juanita = new Student("Juanita Alejandra", 25, [
-  ("Introduccion a los video juegos", "Produccion de personajes"),
-]);
-
-// Dentro juanita que es una instacia del proto Student podremos acceder
-// al metodo aprobarCurso(nuevoCurso)
-// Esto funciona por que en el proto Student viene heredado del objeto incial
-juanita.aprobarCurso("Unreal Engine");
-
-class Student_class {
-  // Si se hace de esta forma se tendran que enviar en ese mismo orden
-  // << constructor(name, age, cusosAprobados) { >> y entre mas parametros se ingresen mas complicado se hace ademas que tendrias que recordar el orden de los parametros para asi mismo cargar la informacion
-
-  // En vez de eso podemos recibir todo en un solo parametro de tipo objeto
-  // Podra recicir los parametros en desorden
-  // Podemos asignar valores por defecto en caso de su ausencia en el envio
+class Student {
   constructor({
-    email,
     name,
-    age,
-    cusosAprobados = [],
-    instagram,
-    twitter,
-    facebook,
+    email,
+    username,
+    twitter = undefined,
+    instagram = undefined,
+    facebook = undefined,
+    approved = [],
+    learningPaths = [],
   }) {
+    // Al llamar this.atributo = atribito debe terminar la linea con punto y coma;
     this.name = name;
-    this.age = age;
-    this.cusosAprobados = cusosAprobados;
-  }
-
-  // Métodos
-  aprobarCurso(nuevoCurso) {
-    this.cusosAprobados.push(nuevoCurso);
+    this.email = email;
+    this.username = username;
+    this.socialMedia = {
+      // Dentro del objeto no aplica
+      twitter: twitter,
+      instagram,
+      facebook,
+    };
+    this.approvedCourses = approvedCourses;
+    this.learningPaths = learningPaths;
   }
 }
 
-// Ya no le enviaremos varios parametros en vez eso usaremos un objeto literal que tenga las propiedades que necesitamos
-// Podremos enviarlas en desorden
-const migelito = new Student_class({
-  name: "Miguel",
-  age: 34,
-  cusosAprobados: [
-    "Analisis de negocios para ciencia de datos",
-    "Principos de visuacizacion de datos",
-  ],
-});
-const sutanito = new Student_class({
-  cusosAprobados: [
-    "Analisis de negocios para ciencia de datos",
-    "Principos de visuacizacion de datos",
-  ],
-  name: "Sutano",
-  email: "sutanito@mail.com",
-  age: 41,
+const jose = new Student({
+  name: "jose",
+  username: "arturo",
+  email: "artur@mail.com",
+  twiter: "artuiter",
 });
 
-/* Esta es la forma y orden en que tendriamos que pasar los parametros al constructor
-si el constructor resive los parametros asi:
- << constructor(name, age, cusosAprobados) {} >>
+const jose1 = new Student({
+  name: "jose",
+  username: "arturo",
+  email: "arturito@mail.com",
+  instagram: "artuiter",
+});
 
-const migelito = new Student_class(
-  'Miguel',
-  34,
-  [
-    'Analisis de negocios para ciencia de datos',
-    'Principos de visuacizacion de datos'
-  ]
-)
-*/
+/*
+// Con objetos literales abarcariamos muchas más líneas de código
+
+const josatan6 = new Student({
+  name: "Josatán",
+  username: "Jonathan",
+  email: "jostan@mail.com",
+  twitter: "JotanDev",
+});
+
+const josatan = {
+  name: "Josatán",
+  username: "Jonathan",
+  points: 100,
+  socialMedia: {
+    twitter: "@JotanDev_twitter",
+    instagram: "@JotanDev_instagram",
+    facebook: "@JotanDev_facebook",
+  },
+  aprovedCourses: ["HTML & CSS", "HTML & CSS Práctico"],
+  //
+  learningPaths: [
+    {
+      name: "Escuela de Desarrollo Web",
+      courses: ["HTML & CSS", "HTML & CSS Práctico", "Responsive Desing"],
+    },
+    {
+      name: "Escuela de Video Juegos",
+      courses: ["Producción de VGS", "Ureal Engine", "Unity 3D"],
+    },
+    {},
+  ],
+};
+
+const meganito = {
+  name: "Megano",
+  username: "MengaDev",
+  points: 100,
+  socialMedia: {
+    twitter: "@MengaDev_twitter",
+    instagram: undefined,
+    facebook: "@MenganDev_facebook",
+  },
+  aprovedCourses: ["Data Business", "DataViz AI"],
+  //
+  learningPaths: [
+    {
+      name: "Escuela de Desarrollo Web",
+      courses: ["HTML & CSS", "HTML & CSS Práctico", "Responsive Desing"],
+    },
+    {
+      name: "Escuela de Data Science",
+      courses: ["Data Business", "DataViz", "Tableau"],
+    },
+  ],
+}; */
