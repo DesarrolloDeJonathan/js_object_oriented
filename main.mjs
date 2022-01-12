@@ -1,3 +1,31 @@
+// Funciones secretas, por ahora podrian ser accedidas desde cualquier parte
+function videoPlay(id) {
+  const urlSecreta = "https://platziultrasecretomasquelanasa.com/" + id;
+  console.log("Se está reproduciendo desde la url " + urlSecreta);
+}
+function videoStop(id) {
+  const urlSecreta = "https://platziultrasecretomasquelanasa.com/" + id;
+  console.log("Pausamos la url " + urlSecreta);
+}
+
+/*
+Con export son para definir cuales son las partes que podremos ejecutar desde cualquier otro script en nuestro codigo
+*/
+export class PlatziClass {
+  constructor({ name, videoID }) {
+    this.name = name;
+    this.videoID = videoID;
+  }
+
+  reproducir() {
+    // Las funciones recibiran este parametro secreto que estamos pasando
+    videoPlay(this.videoID);
+  }
+  pausar() {
+    videoStop(this.videoID);
+  }
+}
+
 // Definicion de clase course
 class Course {
   constructor({ name, classes = [], commets = [] }) {
@@ -64,7 +92,7 @@ class Student {
     twitter = undefined,
     instagram = undefined,
     facebook = undefined,
-    approved = [],
+    approvedCourses = [],
     learningPaths = [],
   }) {
     // Al llamar this.atributo = atribito debe terminar la linea con punto y coma;

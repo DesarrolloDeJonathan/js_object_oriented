@@ -6,6 +6,24 @@
     <title>Curso Básico de POO en JS</title>
   </head>
   <body>
-    <script src="./main.js"></script>
+    <!-- Cambiamos la extencion de .js a .mjs (Module JavaSctipt) -->
+    <!-- con la extencion .js podemos acceder a las funciones de los videos
+      Y este conportamiento no nos conviene ya que se tiene acceso de algo que no queremos que se tenga acceso
+    <script>
+      videoPlay(urlscreta$#%$^&4)
+    </script>
+
+     Lo evitamos modificando la extencion del archivo, dejando esta de html .js y colocando el tipo para hacer las funciones invisibles
+    <script src="./main.js" type="module"></script>
+    Estabamos importando todos los archivos de nuestro script main.js
+    -->
+    <!-- Ya con esta linea podremos importarlos direntamente desde main.mjs -->
+    <script type="module">
+      // Entre llaves la funcion que necesitamos y de donde la vamos a traer
+
+      // Luego de crear el archivo module.mjs podemos presindir de esta linea
+      // import { PlatziClass } from "./main.mjs ";
+    </script>
+    <!-- Puede que tengamos algun problema de CORS en el navegador al ejecutar la linea anterior ya que no permitira que usemos modulos de JS amenos que tengamos un servidor que nos permita hacer una configuracion para lo ya mencionado CORS -->
   </body>
 </html>
