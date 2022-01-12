@@ -1,3 +1,20 @@
+// Para empezar a ver el polimorfismo
+class Commet {
+  constructor({ content, studenName, studentRol }) {
+    this.content = content;
+    this.studenName = studenName;
+    this.studentRol = studentRol;
+    // podemos crear mas atributos aunque no los estemos recibiendo como parametros
+    this.likes = 0;
+  }
+
+  publicar() {
+    console.log(this.studentName + " (" + this.studentRole + ")");
+    console.log(this.likes + " likes");
+    console.log(this.content);
+  }
+}
+
 // Funciones secretas, por ahora podrian ser accedidas desde cualquier parte
 function videoPlay(id) {
   const urlSecreta = "https://platziultrasecretomasquelanasa.com/" + id;
@@ -126,6 +143,16 @@ class StudentMom {
     this.approvedCourses = approvedCourses;
     this.learningPaths = learningPaths;
   }
+
+  // Creamos este metodo con el contenido del comentario como parametro
+  publicarComentario(commentContent) {
+    // Creamos una instancia(objeto) dentro de otra clase(prototipo)
+    const comment = new Comment({
+      content: commentContent,
+      studentName: this.name,
+    });
+    comment.publicar();
+  }
 }
 
 // Aplicando herencia de clase StudentMama
@@ -180,6 +207,25 @@ class ExpertStudent extends StudentMom {
     this.approvedCourses.push(newCourse);
   }
 }
+class TeacherStudent extends StudentMom {
+  constructor(props) {
+    super(props);
+  }
+  approveCourse(newCourse) {
+    this.approvedCourses.push(newCourse);
+  }
+
+  // Esto cambiara o sobrescribira el metodo de la superclase Mom
+  publicarComentario(commentContent) {
+    // Creamos una instancia(objeto) dentro de otra clase(prototipo)
+    const comment = new Comment({
+      content: commentContent,
+      studentName: this.name,
+      studentRol: "profesor",
+    });
+    comment.publicar();
+  }
+}
 
 const jose = new BasicStudent({
   name: "jose",
@@ -187,15 +233,31 @@ const jose = new BasicStudent({
   email: "artur@mail.com",
   twiter: "artuiter",
 });
+const cansek = new FreeStudent({
+  name: "jose",
+  username: "arturo",
+  email: "artur@mail.com",
+  twiter: "artuiter",
+});
 
-const arturo = new FreeStudent({
+const arturo = new ExpertStudent({
   name: "jose",
   username: "arturo",
   email: "arturito@mail.com",
   instagram: "artuiter",
+  learningPaths: [escuelaData, escuelaWeb],
+});
+
+const profe = new TeacherStudent({
+  name: "el matematico",
+  username: "profe de mate",
+  email: "matematicas@mail.com",
+  instagram: "matenumeros",
 });
 
 console.log(arturo.approveCourse(cursoDefinitivoHTML));
 console.log(arturo.approveCourse(cursoPracticoHTML));
+console.log(cansek.approveCourse(cursoDefinitivoHTML));
+console.log(cansek.approveCourse(cursoPracticoHTML));
 console.log(jose.approveCourse(cursoDefinitivoHTML));
 console.log(jose.approvedCourses[0]);
