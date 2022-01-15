@@ -1,3 +1,37 @@
+const objUno = {
+  a: "a",
+  b: "b",
+  c: {
+    d: "d",
+  },
+};
+
+const objDos = {};
+// De esta forma estamos copiando cada una de las propiedadesy luego la asignamos a objDos
+// Por lo que al editar  objUno no afectara los valores de objDos funciona bien para datos primitivos
+// El problema viene cuando tenemos objetos dentro de otros objetos en ese momento se totea este codigo
+for (prop in objUno) {
+  objDos[prop] = objUno[prop];
+}
+console.table(objUno);
+// console.log((objUno.c.d = "DDDDDDD"));
+// Vemos que el cambio anterior al objUno altero tambien a objDos
+console.log(objDos);
+
+// De esta forma tambien se vera afectado por las modificaciones que se hagan en objUno
+const objTres = Object.assign({}, objUno);
+// Este creara un nuevo objeto donde las propiedades que heredo quedan guardadas en el
+const objCuatro = Object.create(objUno);
+console.log(objCuatro);
+console.log(objCuatro.a);
+console.log((objCuatro.a = "AAAAAA"));
+// Este afectara a objUno por aquello de los objetos dentro de otros objetos
+// Si modificamos algo del objeto al que apuntamos veremos los cambios en el que esta heredando (object proto)
+console.log((objCuatro.c.d = "DDDDDD"));
+console.table(objCuatro);
+console.table(objUno);
+
+/*
 const jonny = {
   name: "Jonny",
   age: 18,
@@ -38,7 +72,7 @@ name: {value: 'Jonny', writable: true, enumerable: true, configurable: true}
     nombre del objeto donde vamos a trabajar
     nombre de la nueva propiedad que vamos a crear,
     y por ultimo un objeto con la lista de parametros
-*/
+
 
 console.log(Object.getOwnPropertyDescriptors(jonny));
 
@@ -129,3 +163,4 @@ console.log(delete stif.name); // False al intentar eliminarlo
 console.log(stif.name); // Aun que parece que se altero el nombre sigue siendo el mismo
 
 console.groupEnd();
+*/
