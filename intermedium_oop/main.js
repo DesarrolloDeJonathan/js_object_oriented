@@ -1,3 +1,4 @@
+/*
 const objUno = {
   a: "a",
   b: "b",
@@ -21,3 +22,33 @@ const objDos = JSON.parse(stringified_complex_object);
 console.log(objUno.edit_a());
 // Vemos que no esta el metodo
 console.log(objDos);
+*/
+
+// Ejemplo de estructura de una funcion recursiva, no necesarimente tiene que ser igual
+// function recursiva() {
+//   if (/** Validacion */) {
+//     // Lamados recursivos
+//   }else {
+//     // Llamados sin recursividad
+//   }
+// }
+
+// Funciones Recursivas
+const numeritos = [0, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 435678, 7, 2, 3];
+// Sin recursividad
+// let numerito = 0;
+// for (let index = 0; index < numeritos.length; index++) {
+//   numerito = numeritos[index];
+//   console.log({ index, numerito });
+//   // const element = array[index];
+// }
+
+// Lo mismo con recursividad
+function recursiva(arrayNumbers) {
+  if (arrayNumbers != 0) {
+    const firstNum = arrayNumbers[0];
+    console.log(firstNum);
+    arrayNumbers.shift();
+    return recursiva(arrayNumbers);
+  }
+}
