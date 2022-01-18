@@ -70,7 +70,6 @@ function LearningPath({ name = requiredParam("name"), courses = [] }) {
   // return public;
 }
 
-// El mombre cambia por que ya no es una fabrica de objetos sino un Prototipo
 function Student({
   name = requiredParam("name"),
   email = requiredParam("email"),
@@ -91,85 +90,57 @@ function Student({
     facebook,
   };
 
-  if (isArray(learningPaths)) {
-    // Si validamos que el la varaible learningPath si es un array ira cargando los learningPathIndex dentro de este array vacio
-    this.learningPaths = [];
-    // Ya validamos que es un array y sabemos que puede haber elementos en este
-    // Preguntamos si cada indice del array es una isntacia de LearningPath
-    // learningPathIndex es la pocision dentro del array o en el array learningPaths
-    for (learningPathIndex in learningPaths) {
-      console.log(learningPaths[learningPathIndex]);
-      console.log(learningPaths[learningPathIndex] instanceof LearningPath);
+  // creamos una constante objeto private donde vamos a guardar informacion que no queremos que puedan acceder o 'jaquear' personas curiosas
+  const private = {
+    _learningPaths: [],
+  };
 
-      // Si cada uno es realmente un LearningPath
-      if (learningPaths[learningPathIndex] instanceof LearningPath) {
-        console.log(learningPaths);
-        console.log(learningPaths);
-        // Empujara la nueva propiedad con la posicion de learningPathIndex dentro del array learningPath
-        this.learningPaths.push(learningPaths[learningPathIndex]);
-        console.log(learningPaths);
-        console.log(learningPaths[learningPathIndex]);
+  // Crearemos un nuevo atributo dentro de this (Student.prototype)
+  // Le asignamos un getter y un setter
+  Object.defineProperty(this, "learningPaths", {
+    get() {
+      return private["_learningPaths"];
+    },
+    set(newLp) {
+      // Validamos si cada _learningPaths son realmente un LearningPath
+      if (newLp instanceof LearningPath) {
+        private["_learningPaths"].push(newLp);
+      } else {
+        // Cada vez que traten de asignar un learningPaths al principo de la instanciasion de nuestro prototipo
+        // Y tambien cada vez que estemos llamando a setter
+        console.warn(
+          "Alguno de los LPs no es una instancia dell prototipo LearningPath",
+        );
       }
-    }
+    },
+
+    // esto hace que no podamos cambiar ni set ni get y de ninguna manera a _learningPaths
+    // configurable: false, pero realmente no es tan necesario ya que tendria que hacer un asignasion que no podria set
+  });
+
+  // Para que cada uno de los learningPaths que enviemos desde un principio cuando estamos instanciando a Student
+  // por cada uno de ellos llamaremos al setter de arriba
+  for (learningPathIndex in learningPaths) {
+    // Para verificar y asignarle, en caso que la validacion sea correcta
+    // que ese nuevo this.learningPaths debe ir dentro de learningPaths[learningPathIndex]
+    this.learningPaths = learningPaths[learningPathIndex];
   }
-
-  // const private = {
-  //   "_name": name,
-  //   "_learningPaths": learningPaths,
-  // };
-
-  // const public = {
-  //   email,
-  //   age,
-  //   approvedCourses,
-  //   socialMedia: {
-  //     twitter,
-  //     instagram,
-  //     facebook,
-  //   },
-  //   get name() {
-  //     return private["_name"];
-  //   },
-  //   set name(newName) {
-  //     if (newName.length != 0) {
-  //       private["_name"] = newName;
-  //     } else {
-  //       console.warn("Tu nombre debe tener al menos 1 caracter");
-  //     }
-  //   },
-  //   get learningPaths() {
-  //     return private["_learningPaths"];
-  //   },
-  //   set learningPaths(newLP) {
-  //     if (!newLP.name) {
-  //       console.warn("Tu LP no tiene la propiedad name");
-  //       return;
-  //     }
-
-  //     if (!newLP.courses) {
-  //       console.warn("Tu LP no tiene courses");
-  //       return;
-  //     }
-
-  //     if (!isArray(newLP.courses)) {
-  //       console.warn("Tu LP no es una lista (*de cursos)");
-  //       return;
-  //     }
-
-  //     private["_learningPaths"].push(newLP);
-  //   },
-  // };
-
-  // return public;
 }
+
+// Para manipular el atributo de un objeto con ciertos valores
+// Le pasamos el objeto que vamos a manipular, la propiedad que queremos trabajar
+// y un objeto con las propiedades que le vamos asignar
+
+// Object.defineProperty(Student.prototype); esto lo podemos definir con this al ser un proto
+// Dentro su propiedad proto podriamos asignales sus metodos
+// Student.prototype.learningPaths = function name(params) {}
 
 const escuelaWeb = new LearningPath({ name: "Escuela de WebDev" });
 const escuelaData = new LearningPath({ name: "Escuela de Data Science" });
 const juan = new Student({
   email: "juanito@frijoles.co",
   name: "Juanito",
-  // Con la logica aplicada en el condicional de arriaba este al no ser una instasia de LearningPath
-  // perdera relevacia y no se mostrara con lo asi antes
+  // Prueba de 'jaqueo'
   learningPaths: [escuelaWeb, escuelaData, { name: "escuela DEL IMPOSTOR" }],
 });
 
